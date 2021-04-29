@@ -17,6 +17,10 @@
 
     <!-- Link CSS -->
     <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <!-- App.js -->
+    <script src="/app.js"></script>
+
 </head>
 
 <body>
@@ -81,16 +85,16 @@
 
         <h1>Let's start!</h1>
 
-            <h2>Registro de nova despesa</h2>
+        <h2>Registro de nova despesa</h2>
 
         <section class="formulario d-flex flex-column">
 
             <div class="form-group">
 
-                <select class="form-control">
+                <select class="form-control" id="ano">
 
                     <option value="">Ano</option>
-                    <option value="">2021</option>
+                    <option value="2021">2021</option>
 
                 </select>
 
@@ -98,21 +102,21 @@
 
             <div class="form-group">
 
-                <select class="form-control">
+                <select class="form-control" id="mes">
 
                     <option value="">Mês</option>
-                    <option value="">Janeiro</option>
-                    <option value="">Fevereiro</option>
-                    <option value="">Março</option>
-                    <option value="">Abril</option>
-                    <option value="">Maio</option>
-                    <option value="">Junho</option>
-                    <option value="">Julho</option>
-                    <option value="">Agosto</option>
-                    <option value="">Setembro</option>
-                    <option value="">Outubro</option>
-                    <option value="">Novembro</option>
-                    <option value="">Dezembro</option>
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
 
                 </select>
 
@@ -120,20 +124,20 @@
 
             <div class="form-group">
 
-                <input class="form-control form-control-md" type="text" placeholder="Dia">
+                <input class="form-control form-control-md" type="text" id="dia" placeholder="Dia">
 
             </div>
 
             <div class="form-group">
 
-                <select class="form-control">
+                <select class="form-control" id="tipo">
 
                     <option value="">Tipo</option>
-                    <option value="">Alimentação</option>
-                    <option value="">Educação</option>
-                    <option value="">Lazer</option>
-                    <option value="">Saúde</option>
-                    <option value="">Transporte</option>
+                    <option value="1">Alimentação</option>
+                    <option value="2">Educação</option>
+                    <option value="3">Lazer</option>
+                    <option value="4">Saúde</option>
+                    <option value="5">Transporte</option>
 
                 </select>
 
@@ -141,21 +145,40 @@
 
             <div class="form-group">
 
-                <input class="form-control form-control-md" type="text" placeholder="Descrição">
+                <input class="form-control form-control-md" type="text" id="descricao" placeholder="Descrição">
 
             </div>
 
             <div class="form-group">
 
-                <input class="form-control form-control-md" type="text" placeholder="Valor">
+                <input class="form-control form-control-md" type="text" id="valor" placeholder="Valor">
 
             </div>
 
-            <button type="button" class="btn btn-primary btn-lg">
+            <button onclick="cadastrarDespesa()" type="button" class="btn btn-primary btn-lg">
                 <i class="fas fa-plus"></i>
             </button>
 
         </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalRegistraDespesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id="modal_titulo_div">
+                        <h5 class="modal-title" id="exampleModalLabel">Erro na gravação dos dados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" id="botao-modal"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
