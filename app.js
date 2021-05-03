@@ -63,7 +63,7 @@ class Bd {
 
             //verifica a possibilidade de haver índices que foram pulados/removidos
             //nestes casos nós vamos pular esses índices
-            if(despesa === null) {
+            if (despesa === null) {
                 continue
             }
 
@@ -71,6 +71,10 @@ class Bd {
         }
 
         return despesas
+    }
+
+    pesquisar(despesa) {
+        console.log(despesa)
     }
 }
 
@@ -103,6 +107,7 @@ function cadastrarDespesa() {
 
     if (despesa.validarDados()) {
         bd.gravar(despesa)
+
         //dialog de sucesso
         document.getElementById('exampleModalLabel').innerHTML = 'Dados inseridos com sucesso'
         document.getElementById('modal_titulo_div').className = 'modal-header text-success'
@@ -122,7 +127,15 @@ function cadastrarDespesa() {
 
         $('#modalRegistraDespesa').modal('show')
     }
+}
 
+function restauraCampos() {
+    document.getElementById('ano').value = ''
+    document.getElementById('mes').value = ''
+    document.getElementById('dia').value = ''
+    document.getElementById('tipo').value = ''
+    document.getElementById('descricao').value = ''
+    document.getElementById('valor').value = ''   
 }
 
 function carregaListaDespesas() {
@@ -130,5 +143,61 @@ function carregaListaDespesas() {
 
     despesas = bd.recuperarTodosRegistros()
 
-    console.log(despesas)
+    //seleciona o elemento tbody
+    let listaDespesas = document.getElementById('listaDespesas')
+
+    /*
+
+    <tr>
+        <td>15/03/2018</td>
+        <td>Alimentação</td>
+        <td>Compras do mês</td>
+        <td>444.75</td>
+    </tr> 
+
+    */
+
+    //percorrer o array despesas, listando cada despesa de forma dinâmica
+    despesas.forEach(d => {
+
+        console.log(d)
+
+        //criando a linha (tr)
+        let linha = listaDespesas.insertRow()
+
+        //criar as colunas (td)
+        linha.insertCell(0).innerHTML = `${d.dia}/${d.mes}/${d.ano}`
+        linha.insertCell(1).innerHTML = d.tipo
+
+        //ajustar o tipo
+        switch(d.tipo) {
+            case '1': d.tipo = 'Alimentação'
+                break
+            case '2': d.tipo = 'Educação'
+                break
+            case '3': d.tipo = 'Lazer'
+                break
+            case '4': d.tipo = 'Saúde'
+                break
+            case '5': d.tipo = 'Transporte'
+                break
+            
+        }
+
+        linha.insertCell(2).innerHTML = d.descricao
+        linha.insertCell(3).innerHTML = d.valor
+    });
+}
+
+function pesquisarDespesa() {
+    let ano = document.getElementById('ano').value
+    let mes = document.getElementById('mes').value
+    let dia = document.getElementById('dia').value
+    let tipo = document.getElementById('tipo').value
+    let descricao = document.getElementById('descricao').value
+    let valor = document.getElementById('valor').value
+
+    let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
+
+    bd.pesquisar(despesa)
 }
